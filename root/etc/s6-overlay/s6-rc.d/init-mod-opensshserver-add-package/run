@@ -1,0 +1,35 @@
+#!/usr/bin/with-contenv bash
+
+## Ubuntu
+if [ -f /usr/bin/apt ]; then
+    echo "\
+        zsh \
+        " >> /mod-repo-packages-to-install.list
+
+fi
+# Alpine
+if [ -f /sbin/apk ]; then
+    echo "\
+    bash \
+    dateutils \
+    file \
+    jq \
+    musl-locales \
+    nano \
+    openssh \
+    openvpn \
+    p7zip \
+    rclone \
+    rsync \
+    sqlite \
+    sudo \
+    tini \
+    tmux \
+    util-linux \
+    wget \
+    xz \
+    zsh \
+    alpine-zsh-config \
+    zsh-theme-powerlevel10k \
+    " >> /mod-repo-packages-to-install.list
+fi
