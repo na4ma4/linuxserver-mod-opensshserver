@@ -4,11 +4,15 @@
 USER_NAME=${USER_NAME:-linuxserver.io}
 
 if [[ ! -z ${PRIVATE_KEY_ECDSA} ]]; then
-    [[ ! -d "/config/.ssh" ]] && mkdir --mode=0700 "/config/.ssh"
+    _homePath="/config"
+    if [[ ! -z "${USER_HOME}" ]]; then
+        _homePath="${USER_HOME}"
+    fi
+    [[ ! -d "${_homePath}/.ssh" ]] && mkdir --mode=0700 "${_homePath}/.ssh"
 
-    echo -e "${PRIVATE_KEY_ECDSA}" | tee "/config/.ssh/id_ecdsa" > /dev/null
-    chmod 0600 "/config/.ssh/id_ecdsa"
-    ssh-keygen -y -f /config/.ssh/id_ecdsa | tee "/config/.ssh/id_ecdsa.pub" > /dev/null
+    echo -e "${PRIVATE_KEY_ECDSA}" | tee "${_homePath}/.ssh/id_ecdsa" > /dev/null
+    chmod 0600 "${_homePath}/.ssh/id_ecdsa"
+    ssh-keygen -y -f ${_homePath}/.ssh/id_ecdsa | tee "${_homePath}/.ssh/id_ecdsa.pub" > /dev/null
 fi
 
-lsiown "${USER_NAME}":"${USER_NAME}" /config
+lsiown "${USER_NAME}":"${USER_NAME}" "${_homePath}"

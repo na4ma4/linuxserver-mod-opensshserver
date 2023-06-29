@@ -10,12 +10,16 @@ fi
 # Alpine
 if [ -f /sbin/apk ]; then
     echo "\
+    autossh \
     bash \
+    bind-tools \
     dateutils \
     file \
+    git \
     jq \
     musl-locales \
     nano \
+    net-tools \
     openssh \
     openvpn \
     p7zip \

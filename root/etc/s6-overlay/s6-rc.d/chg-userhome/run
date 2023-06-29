@@ -1,0 +1,36 @@
+#!/usr/bin/with-contenv bash
+# shellcheck shell=bash
+
+USER_NAME=${USER_NAME:-linuxserver.io}
+
+if [[ ! -z ${USER_HOME} ]]; then
+    echo "[chg-userhome] changing user home to \"${USER_HOME}\""
+    # _orig_home="$(getent passwd "${USER_NAME}" | cut -d: -f6)"
+    usermod -d "${USER_HOME}" "abc"
+    if [[ ! -d "${USER_HOME}" ]]; then
+        mkdir -p "${USER_HOME}"
+    fi
+    # mv "${_orig_home}/.ssh" "${USER_HOME}/.ssh"
+    lsiown -R "abc:abc" "${USER_HOME}"
+fi
+
+if [[ ! -z ${USER_PS1} ]]; then
+    if [[ -f "${USER_HOME}/.bash_profile" ]]; then
+        grep -Eq "^PS1=" "${USER_HOME}/.bash_profile"
+        if [[ ${?} == 0 ]]; then
+            ## update PS1
+            echo '[chg-userhome] update PS1 (disabled)'
+            # sed -i "s#^PS1=.*$##" "${USER_HOME}/.bash_profile" > /dev/null
+        else
+            ## add PS1
+            echo '[chg-userhome] add PS1'
+            tee -a "${USER_HOME}/.bash_profile" <<<"PS1='${USER_PS1}'" > /dev/null
+        fi
+    else
+        ## create .bash_profile
+        echo '[chg-userhome] create .bash_profile'
+        tee "${USER_HOME}/.bash_profile" <<<"PS1='${USER_PS1}'" > /dev/null
+    fi
+    
+    lsiown -R "abc:abc" "${USER_HOME}"
+fi
