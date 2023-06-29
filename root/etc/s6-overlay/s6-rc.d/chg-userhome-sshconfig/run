@@ -17,9 +17,3 @@ if [[ ! -z ${USER_HOME} ]]; then
 
     lsiown -R "${USER_NAME}:${USER_NAME}" "${USER_HOME}"
 fi
-
-set -x
-
-ls -al /config
-ls -al /config/homedir
-ls -al /config/homedir/.ssh
