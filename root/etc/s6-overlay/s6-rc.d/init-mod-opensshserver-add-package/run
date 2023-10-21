@@ -25,6 +25,7 @@ if [ -f /sbin/apk ]; then
     p7zip \
     rclone \
     rsync \
+    run-parts \
     sqlite \
     sudo \
     tini \
