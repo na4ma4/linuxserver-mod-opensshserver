@@ -17,6 +17,7 @@ if [ -f /sbin/apk ]; then
     file \
     git \
     jq \
+    moreutils \
     musl-locales \
     nano \
     net-tools \
