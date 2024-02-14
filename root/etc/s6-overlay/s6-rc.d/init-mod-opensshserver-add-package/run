@@ -9,6 +9,8 @@ if [ -f /usr/bin/apt ]; then
 fi
 # Alpine
 if [ -f /sbin/apk ]; then
+    /sbin/apk add kubectl --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/
+
     echo "\
     autossh \
     bash \
@@ -21,7 +23,9 @@ if [ -f /sbin/apk ]; then
     musl-locales \
     nano \
     net-tools \
+    nmap \
     openssh \
+    openssl \
     openvpn \
     p7zip \
     rclone \
