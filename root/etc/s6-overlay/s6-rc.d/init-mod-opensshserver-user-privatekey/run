@@ -10,7 +10,7 @@ if [[ ! -z ${PRIVATE_KEY_ECDSA} ]]; then
     fi
     [[ ! -d "${_homePath}/.ssh" ]] && mkdir --mode=0700 "${_homePath}/.ssh"
 
-    echo -e "${PRIVATE_KEY_ECDSA}" | tee "${_homePath}/.ssh/id_ecdsa" > /dev/null
+    printf "%s" "${PRIVATE_KEY_ECDSA}" | tee "${_homePath}/.ssh/id_ecdsa" > /dev/null
     chmod 0600 "${_homePath}/.ssh/id_ecdsa"
     ssh-keygen -y -f ${_homePath}/.ssh/id_ecdsa | tee "${_homePath}/.ssh/id_ecdsa.pub" > /dev/null
 fi
