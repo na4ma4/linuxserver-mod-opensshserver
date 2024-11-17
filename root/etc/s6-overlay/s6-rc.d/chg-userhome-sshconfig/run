@@ -21,7 +21,7 @@ if [[ ! -z ${USER_HOME} ]]; then
         if [[ -f "/config/.ssh/authorized_keys" ]]; then
             echo "[chg-userhome-sshconfig] combining existing authorized_keys with \"${USER_HOME}/.ssh/authorized_keys\""
             TMP_FILE="$(mktemp)"
-            cat "/config/.ssh/authorized_keys" <(echo "") "${USER_HOME}/.ssh/authorized_keys" | sort -u | tee "${TMP_FILE}" >/dev/null
+            awk 1 "/config/.ssh/authorized_keys" "${USER_HOME}/.ssh/authorized_keys" | sort -u | tee "${TMP_FILE}" >/dev/null
             cat "${TMP_FILE}" | tee "${USER_HOME}/.ssh/authorized_keys"
             chmod 0600 "${USER_HOME}/.ssh/authorized_keys"
             rm -f "${TMP_FILE}" "/config/.ssh/authorized_keys"
